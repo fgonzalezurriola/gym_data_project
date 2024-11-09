@@ -38,7 +38,7 @@ def get_weekly_visits(db: Session = Depends(get_db)):
             "visits": row.visits,
             "avg_calories": row.avg_calories
         })
-    print("Weekly Visits Data:", data)  
+    # print("Weekly Visits Data:", data)  
     return data
 
 
@@ -54,8 +54,8 @@ def get_workout_distribution(db: Session = Depends(get_db)):
     ORDER BY count DESC
     """)
     result = db.execute(query)
-    for row in result:
-        print(row) 
+    # for row in result:
+    #     print(row) 
     return [{"type": row.workout_type, "count": row.count, "avg_calories": row.avg_calories}
             for row in result]
 
@@ -94,9 +94,25 @@ def get_daily_metrics(db: Session = Depends(get_db)):
         FROM gym_visits
     """)).scalar()
 
+
+
     return {
-        "avg_daily_visits": round(avg_daily_visits) if avg_daily_visits is not None else 0,
-        "avg_calories_per_session": round(avg_calories) if avg_calories is not None else 0,
+        "avg_daily_visits": round(avg_daily_visits) if avg_daily_visits is not None else "N/A",
+        "avg_calories_per_session": round(avg_calories) if avg_calories is not None else "N/A",
         "most_popular_hour": f"{popular_hour.hour}:00" if popular_hour is not None else "N/A",
-        "active_users": active_users if active_users is not None else 0
+        "active_users": active_users if active_users is not None else "N/A",
+    }
+
+@router.get("/user-metrics")
+def get_daily_metrics(db: Session = Depends(get_db)):
+    """Get user metrics for the second dashboard"""
+
+    categories_count = db.execute(text("""
+        SELECT COUNT(distinct user_id)
+        FROM gym_visits
+    """)).scalar()
+                                       
+
+    return {
+        "gender": categories_count if categories_count is not None else "N/A",
     }

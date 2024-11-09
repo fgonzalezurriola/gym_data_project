@@ -1,0 +1,22 @@
+# venv
+.venv
+
+# DB
+*.db
+*.sqlite3
+
+# Credentials
+secret.key
+
+# Temp
+/logs
+/tmp
+*.log
+
+venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+
+docker-compose.override.yml
