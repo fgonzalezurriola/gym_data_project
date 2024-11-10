@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Component } from 'react';
 import axios from 'axios';
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import Footer from './components/Footer';
 
 function App() {
   const [weeklyData, setWeeklyData] = useState([]);
@@ -71,9 +72,9 @@ function App() {
       </div>
 
       {/* Charts */}
-      <div className="flex w-full mx-auto items-center">
-        <div className="bg-white h-[350px] p-2 rounded-lg shadow">
-          <h2 className="text-xl font-semibold mb-4">Visitas semanales</h2>
+      <div className="flex flex-wrap w-full mx-auto items-center">
+        <div className="bg-white h-[350px] p-2 rounded md:rounded-l-lg  shadow">
+          <h2 className="text-xl font-semibold ml-2.5 mb-4">Visitas semanales</h2>
           <LineChart width={600} height={300} data={weeklyData}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="week" />
@@ -85,8 +86,8 @@ function App() {
           </LineChart>
         </div>
 
-        <div className="bg-white h-[350px] p-2 shadow">
-          <h2 className="text-xl font-semibold mb-4">Gráfico 2</h2>
+        <div className="bg-white h-[350px] p-2 rounded md:rounded-r-lg shadow">
+          <h2 className="text-xl font-semibold ml-2 mb-4">Categoría de ejercicio y cantidad de calorías quemadas</h2>
           <BarChart width={600} height={300} data={workoutData}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="type" />
@@ -106,8 +107,10 @@ function App() {
         <p>Mujer: <strong>{userData.gender_counts?.['Female'] || 0}</strong></p>
         <p>No-Binario: <strong>{userData.gender_counts?.['Non-binary'] || 0}</strong></p>
       </div>
+      <Footer />
 
     </div>
+
   );
 }
 
