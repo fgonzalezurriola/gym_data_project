@@ -66,6 +66,10 @@ def load_initial_data():
     db.close()
     #print("Carga de datos completada.")
 
+# Populate DB
+print("Ejecutando el poblamiento de la base de datos...")
+load_initial_data()
+
 if __name__ == "__main__":
-    print("Ejecutando el poblamiento de la base de datos...")
-    load_initial_data()
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
