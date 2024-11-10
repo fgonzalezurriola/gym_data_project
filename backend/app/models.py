@@ -23,4 +23,3 @@ class GymUser(Base):
     sign_up_date = Column(DateTime)
     user_location = Column(String)
     subscription_plan = Column(String)
-

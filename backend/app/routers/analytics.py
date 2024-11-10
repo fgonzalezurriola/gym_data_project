@@ -7,7 +7,6 @@ from .. import models
 from ..database import SessionLocal
 from sqlalchemy import text
 
-
 router = APIRouter()
 
 def get_db():
@@ -40,7 +39,6 @@ def get_weekly_visits(db: Session = Depends(get_db)):
         })
     # print("Weekly Visits Data:", data)  
     return data
-
 
 @router.get("/workout-distribution")
 def get_workout_distribution(db: Session = Depends(get_db)):
@@ -94,8 +92,6 @@ def get_daily_metrics(db: Session = Depends(get_db)):
         FROM gym_visits
     """)).scalar()
 
-
-
     return {
         "avg_daily_visits": round(avg_daily_visits) if avg_daily_visits is not None else "N/A",
         "avg_calories_per_session": round(avg_calories) if avg_calories is not None else "N/A",
@@ -103,16 +99,20 @@ def get_daily_metrics(db: Session = Depends(get_db)):
         "active_users": active_users if active_users is not None else "N/A",
     }
 
-@router.get("/user-metrics")
-def get_daily_metrics(db: Session = Depends(get_db)):
+@router.get("/users-metrics")
+def get_users_metrics(db: Session = Depends(get_db)):
     """Get user metrics for the second dashboard"""
 
-    categories_count = db.execute(text("""
-        SELECT COUNT(distinct user_id)
-        FROM gym_visits
-    """)).scalar()
-                                       
+    # User gender count (Male, Female and Non-binary)
+    gender_counts = db.execute(text("""
+        SELECT gender, COUNT(*) as count
+        FROM gym_users
+        GROUP BY gender
+    """)).fetchall() 
 
-    return {
-        "gender": categories_count if categories_count is not None else "N/A",
+    # Convertir los resultados a un diccionario
+    gender_counts_dict = {row[0]: row[1] for row in gender_counts}
+
+    return { 
+        "gender_counts": gender_counts_dict
     }
