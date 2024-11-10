@@ -7,6 +7,8 @@ import pandas as pd
 from .database import SessionLocal
 from .models import GymVisit, GymUser 
 from .config import CORS_ORIGINS
+import uvicorn
+import os
 
 app = FastAPI(title="Analíticas de Gimnasios")
 
@@ -71,5 +73,5 @@ print("Ejecutando el poblamiento de la base de datos...")
 load_initial_data()
 
 if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    port = int(os.getenv("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)
