@@ -39,7 +39,6 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-
         const baseURL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000';
         
         const [weeklyResponse, workoutResponse, metricsResponse, userResponse] = await Promise.all([

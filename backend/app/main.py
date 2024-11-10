@@ -67,4 +67,5 @@ def load_initial_data():
     #print("Carga de datos completada.")
 
 if __name__ == "__main__":
+    print("Ejecutando el poblamiento de la base de datos...")
     load_initial_data()
