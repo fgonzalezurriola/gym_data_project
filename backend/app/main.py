@@ -73,5 +73,6 @@ print("Ejecutando el poblamiento de la base de datos...")
 load_initial_data()
 
 if __name__ == "__main__":
+    print(f"El puerto asignado es: {os.getenv('PORT')}")
     port = int(os.getenv("PORT", 8000))
     uvicorn.run(app, host="0.0.0.0", port=port)
