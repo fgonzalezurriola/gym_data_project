@@ -33,3 +33,19 @@ Axios: Utilizado para la comunicación de la API con el frontend, permitiendo qu
 ## Licencia
 
 Este proyecto está licenciado bajo la licencia MIT. Consulta el archivo `LICENSE` para más detalles.
+
+
+## Deployment
+
+Se usó Render para el backend y la base de datos Postgres
+Lamentablemente no logré que el backend populara directamente la db, como mi tiempo es acotado usé directamente un 
+comando y un archivo .sql para popularla.
+
+Para el Frontend se usó vercel https://gym-data-project.vercel.app/ 
+
+### Comando para Popular la Base de Datos
+
+Para cargar los datos en la base de datos de PostgreSQL, se utilizó el siguiente comando:
+
+```bash
+psql -h <host> -U <usuario> -d <nombre_de_base_de_datos> -f <ruta_del_archivo_sql>
