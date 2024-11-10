@@ -6,13 +6,14 @@ from . import models
 import pandas as pd
 from .database import SessionLocal
 from .models import GymVisit, GymUser 
+from .config import CORS_ORIGINS
 
 app = FastAPI(title="Analíticas de Gimnasios")
 
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=CORS_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

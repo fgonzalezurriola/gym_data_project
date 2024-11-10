@@ -15,16 +15,40 @@ function App() {
   // console.log('Metrics:', metrics);
   console.log('User Data:', userData);
 
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const [weeklyResponse, workoutResponse, metricsResponse, userResponse] = await Promise.all([
+  //         axios.get('http://localhost:8000/api/analytics/weekly-visits'),
+  //         axios.get('http://localhost:8000/api/analytics/workout-distribution'),
+  //         axios.get('http://localhost:8000/api/analytics/daily-metrics'),
+  //         axios.get('http://localhost:8000/api/analytics/users-metrics'),
+  //       ]);
+
+  //       setWeeklyData(weeklyResponse.data);
+  //       setWorkoutData(workoutResponse.data);
+  //       setMetrics(metricsResponse.data);
+  //       setUserData(userResponse.data);
+  //     } catch (error) {
+  //       console.error('Error fetching data:', error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [weeklyResponse, workoutResponse, metricsResponse, userResponse] = await Promise.all([
-          axios.get('http://localhost:8000/api/analytics/weekly-visits'),
-          axios.get('http://localhost:8000/api/analytics/workout-distribution'),
-          axios.get('http://localhost:8000/api/analytics/daily-metrics'),
-          axios.get('http://localhost:8000/api/analytics/users-metrics'),
-        ]);
 
+        const baseURL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000';
+        
+        const [weeklyResponse, workoutResponse, metricsResponse, userResponse] = await Promise.all([
+          axios.get(`${baseURL}/api/analytics/weekly-visits`),
+          axios.get(`${baseURL}/api/analytics/workout-distribution`),
+          axios.get(`${baseURL}/api/analytics/daily-metrics`),
+          axios.get(`${baseURL}/api/analytics/users-metrics`),
+        ]);
+  
         setWeeklyData(weeklyResponse.data);
         setWorkoutData(workoutResponse.data);
         setMetrics(metricsResponse.data);
